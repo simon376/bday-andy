@@ -1,0 +1,55 @@
+@import 'tailwindcss';
+
+@theme {
+	/* DHL-inspired color palette */
+	--color-dhl-yellow: #FFCC00;
+	--color-dhl-red: #D40511;
+	--color-dhl-dark: #323232;
+
+	/* Escalation scale */
+	--color-escalation-calm: #FFCC00;
+	--color-escalation-warning: #F59E0B;
+	--color-escalation-danger: #EF4444;
+	--color-escalation-critical: #991B1B;
+	--color-escalation-panic: #1F2937;
+
+	/* Fonts */
+	--font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+}
+
+@keyframes pulse-red {
+	0%, 100% {
+		box-shadow: 0 0 0 0 rgba(153, 27, 27, 0.7);
+		background-color: #991B1B;
+	}
+	50% {
+		box-shadow: 0 0 0 12px rgba(153, 27, 27, 0);
+		background-color: #DC2626;
+	}
+}
+
+@keyframes shake {
+	0%, 100% { transform: translateX(0); }
+	10% { transform: translateX(-6px) rotate(-1deg); }
+	20% { transform: translateX(6px) rotate(1deg); }
+	30% { transform: translateX(-6px) rotate(-1deg); }
+	40% { transform: translateX(6px) rotate(1deg); }
+	50% { transform: translateX(-4px); }
+	60% { transform: translateX(4px); }
+	70% { transform: translateX(-2px); }
+	80% { transform: translateX(2px); }
+	90% { transform: translateX(-1px); }
+}
+
+@keyframes confetti {
+	0%   { transform: translateY(-10px) rotate(0deg);   opacity: 1; }
+	100% { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+.animate-pulse-red {
+	animation: pulse-red 1.5s ease-in-out infinite;
+}
+
+.animate-shake {
+	animation: shake 0.6s ease-in-out infinite;
+}
