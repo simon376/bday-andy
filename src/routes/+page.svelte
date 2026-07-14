@@ -1,5 +1,17 @@
 <script lang="ts">
 	import { base } from '$app/paths';
+	import { getAllEvents } from '$lib/firebase';
+	import { formatTime } from '$lib/utils/time';
+	import type { AndiEvent } from '$lib/types';
+
+	const statusLabels: Record<AndiEvent['status'], string> = {
+		announced: '📋 Angekündigt',
+		preparing: '🚿 Wird vorbereitet',
+		in_transit: '🚗 Unterwegs',
+		delivered: '✅ Zugestellt'
+	};
+
+	let events = $state(getAllEvents());
 </script>
 
 <div class="flex flex-col items-center justify-center min-h-screen p-6 text-center">
@@ -14,6 +26,29 @@
 			Neues Event erstellen
 		</a>
 	</div>
+
+	{#if events.length > 0}
+		<div class="mt-8 max-w-md w-full space-y-3">
+			<h2 class="text-sm font-medium text-gray-500 uppercase">Deine Events</h2>
+			{#each events as event}
+				<a
+					href="{base}/event/{event.id}"
+					class="block bg-white rounded-xl p-4 shadow-sm hover:shadow-md transition-shadow text-left"
+				>
+					<div class="flex items-center justify-between">
+						<div>
+							<p class="font-bold text-dhl-dark">{event.name}</p>
+							<p class="text-sm text-gray-500">
+								{event.eventTime.toDate().toLocaleDateString('de-DE', { weekday: 'short', day: 'numeric', month: 'short' })}
+								· {formatTime(event.eventTime.toDate())}
+							</p>
+						</div>
+						<span class="text-sm">{statusLabels[event.status]}</span>
+					</div>
+				</a>
+			{/each}
+		</div>
+	{/if}
 
 	<p class="mt-6 text-sm text-gray-400">Andi Standard Time (AST): UTC+47min</p>
 </div>

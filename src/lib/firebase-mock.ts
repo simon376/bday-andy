@@ -319,3 +319,7 @@ export async function updateLocation(eventId: string, lat: number, lng: number):
 	notifySubscribers(eventId);
 	broadcastUpdate(eventId, serializeEvent(updatedEvent));
 }
+
+export function getAllEvents(): AndiEvent[] {
+	return Array.from(events.values());
+}

@@ -86,3 +86,8 @@ export async function updateLocation(
 	if (useMock) return mock.updateLocation(...args);
 	return (await getReal()).updateLocation(...args);
 }
+
+export function getAllEvents(): ReturnType<typeof mock.getAllEvents> {
+	if (useMock) return mock.getAllEvents();
+	return [];
+}
