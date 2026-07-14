@@ -1,5 +1,4 @@
 <script lang="ts">
-	import { goto } from '$app/navigation';
 	import { base } from '$app/paths';
 	import { createEvent, Timestamp } from '$lib/firebase';
 	import { DEFAULT_STEPS, type Step } from '$lib/types';
@@ -46,9 +45,10 @@
 				steps: eventSteps
 			});
 
-			goto(`${base}/event/${eventId}`);
+			window.location.href = `${base}/event/${eventId}`;
 		} catch (error) {
 			console.error('Failed to create event:', error);
+			alert(`Fehler: ${error}`);
 			isSubmitting = false;
 		}
 	}
@@ -59,7 +59,7 @@
 
 	<h1 class="text-2xl font-bold text-dhl-dark mb-6">📦 Neues Event erstellen</h1>
 
-	<form onsubmit={handleSubmit} class="space-y-6">
+	<form onsubmit={(e) => { e.preventDefault(); handleSubmit(); }} class="space-y-6">
 		<div>
 			<label for="name" class="block text-sm font-medium text-gray-700 mb-1">Event-Name</label>
 			<input
