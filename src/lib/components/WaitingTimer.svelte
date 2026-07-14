@@ -1,12 +1,24 @@
 <script lang="ts">
-	import { getComparison, getAllApplicableComparisons } from '$lib/utils/comparisons';
+	import { getAllApplicableComparisons } from '$lib/utils/comparisons';
+	import { getPassiveAggressiveTime, getRandomExcuse, getAndiRating, getFunFact } from '$lib/utils/humor';
 
 	let { eventTime }: { eventTime: Date } = $props();
 
 	let waitingMinutes = $state(0);
-	let comparisonIndex = $state(0);
+	let rotationIndex = $state(0);
 	let allComparisons = $derived(getAllApplicableComparisons(waitingMinutes));
-	let comparison = $derived(allComparisons[comparisonIndex % allComparisons.length] ?? '');
+	let passiveAggressive = $derived(getPassiveAggressiveTime(waitingMinutes));
+	let excuse = $derived(getRandomExcuse(rotationIndex));
+	let rating = $derived(getAndiRating(rotationIndex));
+	let funFact = $derived(getFunFact(rotationIndex));
+
+	let rotatingItems = $derived([
+		...allComparisons.map(c => `⏱️ ${c}`),
+		`💬 Andi sagt gerade: ${excuse}`,
+		`📦 Andi als Lieferdienst: ${rating}`,
+		`🤓 ${funFact}`
+	]);
+	let currentItem = $derived(rotatingItems[rotationIndex % rotatingItems.length] ?? '');
 
 	$effect(() => {
 		const interval = setInterval(() => {
@@ -17,10 +29,10 @@
 	});
 
 	$effect(() => {
-		if (allComparisons.length <= 1) return;
+		if (rotatingItems.length <= 1) return;
 		const interval = setInterval(() => {
-			comparisonIndex++;
-		}, 8000);
+			rotationIndex++;
+		}, 6000);
 		return () => clearInterval(interval);
 	});
 
@@ -33,12 +45,13 @@
 </script>
 
 {#if waitingMinutes > 0}
-	<div class="bg-red-50 border border-red-200 rounded-xl p-5 text-center space-y-2">
+	<div class="bg-red-50 border border-red-200 rounded-xl p-5 text-center space-y-3">
 		<p class="text-xs text-red-600/70 uppercase font-medium tracking-wide">Wartezeit</p>
 		<p class="text-3xl font-black text-red-700">{formatWaiting(waitingMinutes)}</p>
-		{#if comparison}
-			<p class="text-sm text-red-500/80 italic transition-opacity duration-500">
-				💡 {comparison}
+		<p class="text-sm font-medium text-red-600/90">{passiveAggressive}</p>
+		{#if currentItem}
+			<p class="text-xs text-red-500/70 italic border-t border-red-100 pt-2 mt-2">
+				{currentItem}
 			</p>
 		{/if}
 	</div>
