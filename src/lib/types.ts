@@ -43,5 +43,11 @@ export const SUGGESTED_STEPS: Omit<Step, 'id' | 'completedAt'>[] = [
 	{ label: 'Wohnung aufräumen', durationMinutes: 20 },
 	{ label: 'Kaffee trinken', durationMinutes: 10 },
 	{ label: 'Outfit wechseln', durationMinutes: 5 },
-	{ label: 'Nochmal aufs Klo', durationMinutes: 5 }
+	{ label: 'Nochmal aufs Klo', durationMinutes: 5 },
+	{ label: 'Geschenk einpacken', durationMinutes: 15 },
+	{ label: 'Spotify-Playlist erstellen', durationMinutes: 10 },
+	{ label: 'Auto volltanken', durationMinutes: 15 },
+	{ label: 'Power Nap', durationMinutes: 20 },
+	{ label: 'Schlüssel suchen', durationMinutes: 10 },
+	{ label: 'Letzte TikTok-Runde', durationMinutes: 15 }
 ];

@@ -15,14 +15,21 @@
 	});
 </script>
 
-<div class="text-center">
+<div class="bg-white rounded-xl p-4 shadow-sm text-center">
 	{#if isOverdue}
-		<p class="text-sm text-red-500 font-medium">Überfällig seit</p>
-		<p class="text-3xl font-black text-red-600 font-mono">{displayText}</p>
+		<p class="text-xs text-red-500/70 uppercase font-medium tracking-wide">Überfällig seit</p>
+		<p class="text-3xl font-black text-red-600 font-mono mt-1">{displayText}</p>
 	{:else}
-		<p class="text-sm text-gray-500">Ankunft erwartet um</p>
-		<p class="text-2xl font-bold text-dhl-dark">{formatTime(targetDate)}</p>
-		<p class="text-xs text-gray-400">{formatAST(targetDate)}</p>
-		<p class="text-lg font-mono text-dhl-dark/80 mt-1">in {displayText}</p>
+		<div class="flex items-center justify-between">
+			<div class="text-left">
+				<p class="text-xs text-gray-500 uppercase font-medium">Erwartet um</p>
+				<p class="text-xl font-bold text-dhl-dark">{formatTime(targetDate)}</p>
+				<p class="text-xs text-gray-400">{formatAST(targetDate)}</p>
+			</div>
+			<div class="text-right">
+				<p class="text-xs text-gray-500 uppercase font-medium">Countdown</p>
+				<p class="text-xl font-bold font-mono text-dhl-dark">{displayText}</p>
+			</div>
+		</div>
 	{/if}
 </div>

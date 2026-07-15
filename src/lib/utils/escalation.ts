@@ -9,11 +9,20 @@ export interface EscalationState {
 	animationClass: string;
 }
 
+const PANIC_MESSAGES = [
+	'INTERPOL WURDE INFORMIERT',
+	'VERMISSTENANZEIGE AUFGEGEBEN',
+	'SUCHHUNDE LOSGESCHICKT',
+	'HUBSCHRAUBER IM EINSATZ',
+	'NASA SUCHT PER SATELLIT',
+	'SENDUNG GILT ALS VERSCHOLLEN'
+];
+
 export function getEscalation(latenessMinutes: number): EscalationState {
 	if (latenessMinutes <= 0) {
 		return {
 			level: 'calm',
-			message: 'Sendung unterwegs',
+			message: 'Im Zeitplan',
 			bgClass: 'bg-dhl-yellow',
 			textClass: 'text-dhl-dark',
 			animate: false,
@@ -54,9 +63,14 @@ export function getEscalation(latenessMinutes: number): EscalationState {
 		};
 	}
 
+	const panicIndex = Math.min(
+		Math.floor((latenessMinutes - 60) / 30),
+		PANIC_MESSAGES.length - 1
+	);
+
 	return {
 		level: 'panic',
-		message: 'INTERPOL WURDE INFORMIERT',
+		message: PANIC_MESSAGES[panicIndex],
 		bgClass: 'bg-escalation-panic',
 		textClass: 'text-red-500',
 		animate: true,

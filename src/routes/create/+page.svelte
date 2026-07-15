@@ -45,7 +45,7 @@
 				steps: eventSteps
 			});
 
-			window.location.href = `${base}/event/${eventId}`;
+			window.location.href = `${base}/event/${eventId}/share`;
 		} catch (error) {
 			console.error('Failed to create event:', error);
 			alert(`Fehler: ${error}`);

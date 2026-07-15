@@ -21,6 +21,15 @@
 				class="h-full bg-dhl-yellow rounded-full transition-all duration-700"
 				style="width: {(currentIndex / (STATUSES.length - 1)) * 100}%"
 			></div>
+			<!-- Moving package indicator -->
+			{#if currentIndex < STATUSES.length - 1}
+				<div
+					class="absolute -top-3 transition-all duration-700 text-lg"
+					style="left: calc({(currentIndex / (STATUSES.length - 1)) * 100}% - 8px)"
+				>
+					📦
+				</div>
+			{/if}
 		</div>
 
 		{#each STATUSES as status, i}
