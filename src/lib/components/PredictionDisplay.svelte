@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Prediction } from '$lib/types';
-	import { formatTime, formatAST } from '$lib/utils/time';
+	import { formatTime } from '$lib/utils/time';
 
 	let { prediction }: { prediction: Prediction } = $props();
 
@@ -27,7 +27,6 @@
 			<p class="text-xl font-bold text-dhl-dark">
 				{formatTime(prediction.etaTime)}
 			</p>
-			<p class="text-xs text-orange-500 font-medium">🕐 {formatAST(prediction.etaTime)}</p>
 		</div>
 		<div class="text-right">
 			<p class="text-xs text-gray-500 uppercase font-medium">Pünktlichkeit</p>
