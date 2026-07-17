@@ -66,7 +66,7 @@
 				id="name"
 				type="text"
 				bind:value={name}
-				placeholder="Grillabend bei Max"
+				placeholder="Feiern mit Simon und Dani"
 				required
 				class="w-full px-4 py-3 border border-gray-300 rounded-xl focus:ring-2 focus:ring-dhl-yellow focus:border-transparent"
 			/>
