@@ -10,6 +10,10 @@
 // In dev mode without Firebase config, firebase-real will fail to init but
 // we never call into it because we gate on the env var below.
 import * as mock from './firebase-mock';
+// The Timestamp class itself needs no app initialization, so it's safe to
+// import statically — unlike the rest of firebase-real.ts, which is loaded
+// lazily below since it initializes the app on import.
+import { Timestamp as FirestoreTimestamp } from 'firebase/firestore';
 
 const useMock = !import.meta.env.VITE_FIREBASE_API_KEY;
 
@@ -22,7 +26,7 @@ async function getReal() {
 	return real;
 }
 
-export const Timestamp = useMock ? mock.Timestamp : mock.Timestamp;
+export const Timestamp = useMock ? mock.Timestamp : FirestoreTimestamp;
 
 export const generateId = mock.generateId;
 
