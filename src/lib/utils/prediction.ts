@@ -4,33 +4,38 @@ export function calculatePrediction(event: AndiEvent): Prediction {
 	const now = new Date();
 	const eventTime = event.eventTime.toDate();
 
+	let etaTime: Date;
+	let driftMinutes = 0;
+
 	if (event.status === 'delivered') {
-		return { etaMinutes: 0, etaTime: now, confidence: 100, driftMinutes: 0, isLate: false };
-	}
-
-	if (event.status === 'in_transit') {
-		const etaMinutes = event.travelMinutes;
+		etaTime = now;
+	} else if (event.status === 'in_transit') {
 		const leftAt = event.andyLeftAt?.toDate() ?? now;
-		const etaTime = new Date(leftAt.getTime() + etaMinutes * 60_000);
-		const isLate = etaTime > eventTime;
-		return { etaMinutes, etaTime, confidence: 70, driftMinutes: 0, isLate };
+		etaTime = new Date(leftAt.getTime() + event.travelMinutes * 60_000);
+	} else {
+		const drift = calculateDrift(event.steps);
+		driftMinutes = Math.round(drift);
+		const remainingMinutes = getRemainingMinutes(event.steps);
+		const totalMinutes = remainingMinutes + event.travelMinutes + drift;
+		etaTime = new Date(now.getTime() + totalMinutes * 60_000);
 	}
 
-	const drift = calculateDrift(event.steps);
-	const remainingMinutes = getRemainingMinutes(event.steps);
-	const totalMinutes = remainingMinutes + event.travelMinutes + drift;
+	// How many minutes the predicted arrival is expected to miss the deadline by.
+	// Positive = late, negative/zero = on time or early.
+	const projectedLatenessMinutes = (etaTime.getTime() - eventTime.getTime()) / 60_000;
+	const isLate = projectedLatenessMinutes > 0;
 
-	const etaTime = new Date(now.getTime() + totalMinutes * 60_000);
-	const isLate = etaTime > eventTime;
-
-	const bufferMinutes = (eventTime.getTime() - now.getTime()) / 60_000;
-	const confidence = Math.max(0, Math.min(100, Math.round((1 - drift / Math.max(bufferMinutes, 1)) * 100)));
+	// Confidence starts at 100% and drops 2 points per minute of projected lateness.
+	// Deliberately allowed to go negative once things are bad enough — this is a
+	// joke app, not a logistics platform.
+	const confidence =
+		projectedLatenessMinutes <= 0 ? 100 : Math.round(100 - projectedLatenessMinutes * 2);
 
 	return {
-		etaMinutes: Math.round(totalMinutes),
+		etaMinutes: Math.round((etaTime.getTime() - now.getTime()) / 60_000),
 		etaTime,
 		confidence,
-		driftMinutes: Math.round(drift),
+		driftMinutes,
 		isLate
 	};
 }

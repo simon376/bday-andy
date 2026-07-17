@@ -22,9 +22,9 @@
 	{:else}
 		<div class="flex items-center justify-between">
 			<div class="text-left">
-				<p class="text-xs text-gray-500 uppercase font-medium">Erwartet um</p>
+				<p class="text-xs text-gray-500 uppercase font-medium">Vereinbart für</p>
 				<p class="text-xl font-bold text-dhl-dark">{formatTime(targetDate)}</p>
-				<p class="text-xs text-gray-400">{formatAST(targetDate)}</p>
+				<p class="text-xs text-orange-500 font-medium">🕐 {formatAST(targetDate)} nach Andi-Zeit</p>
 			</div>
 			<div class="text-right">
 				<p class="text-xs text-gray-500 uppercase font-medium">Countdown</p>

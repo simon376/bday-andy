@@ -1,42 +1,32 @@
-# sv
+# 📦 Andi Tracker
 
-Everything you need to build a Svelte project, powered by [`sv`](https://github.com/sveltejs/cli).
+Ein Gag-Geburtstagsgeschenk: eine DHL-Style Sendungsverfolgung für den chronisch
+unpünktlichen Andi. Freunde sehen live seinen Vorbereitungsstatus, eine
+eskalierende UI wenn er zu spät ist, und witzige Wartezeit-Vergleiche.
 
-## Creating a project
+**Live:** https://simon376.github.io/bday-andy/
 
-If you're seeing this, you've probably already done this step. Congrats!
+Für die App-Konzepte (Datenmodell, Eskalationsstufen, Kern-Flows) siehe
+[docs/CONCEPT.md](docs/CONCEPT.md). Für den aktuellen Deploy-Status und was
+noch fehlt, siehe [docs/DEPLOYMENT.md](docs/DEPLOYMENT.md).
 
-```sh
-# create a new project
-npx sv create my-app
-```
-
-To recreate this project with the same configuration:
-
-```sh
-# recreate this project
-npx sv@0.16.3 create --template minimal --types ts --no-install .
-```
-
-## Developing
-
-Once you've created a project and installed dependencies with `npm install` (or `pnpm install` or `yarn`), start a development server:
+## Entwickeln
 
 ```sh
+npm install
 npm run dev
-
-# or start the server and open the app in a new browser tab
-npm run dev -- --open
 ```
 
-## Building
-
-To create a production version of your app:
+## Bauen
 
 ```sh
 npm run build
+npm run preview   # Production-Build lokal testen
 ```
 
-You can preview the production build with `npm run preview`.
+## Deployment
 
-> To deploy your app, you may need to install an [adapter](https://svelte.dev/docs/kit/adapters) for your target environment.
+Automatisch via GitHub Actions bei jedem Push auf `main` →
+[docs/DEPLOYMENT.md](docs/DEPLOYMENT.md) für Details und offene Punkte
+(z. B. PWA-Icons, optionale Firebase-Anbindung für geräteübergreifendes
+Live-Sync).

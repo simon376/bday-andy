@@ -1,12 +1,15 @@
-const AST_OFFSET_MINUTES = 47;
+export const AST_OFFSET_MINUTES = 47;
 
 export function formatTime(date: Date): string {
 	return date.toLocaleTimeString('de-DE', { hour: '2-digit', minute: '2-digit' });
 }
 
+export function toAST(date: Date): Date {
+	return new Date(date.getTime() + AST_OFFSET_MINUTES * 60_000);
+}
+
 export function formatAST(date: Date): string {
-	const astDate = new Date(date.getTime() + AST_OFFSET_MINUTES * 60_000);
-	return formatTime(astDate) + ' AST';
+	return formatTime(toAST(date)) + ' AST';
 }
 
 export function formatDuration(minutes: number): string {
