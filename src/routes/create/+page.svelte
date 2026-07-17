@@ -3,9 +3,15 @@
 	import { createEvent, Timestamp } from '$lib/firebase';
 	import { DEFAULT_STEPS, type Step } from '$lib/types';
 
+	function pad(n: number): string {
+		return String(n).padStart(2, '0');
+	}
+
+	const now = new Date();
+
 	let name = $state('');
-	let date = $state('');
-	let time = $state('');
+	let date = $state(`${now.getFullYear()}-${pad(now.getMonth() + 1)}-${pad(now.getDate())}`);
+	let time = $state(`${pad(now.getHours())}:${pad(now.getMinutes())}`);
 	let location = $state('');
 	let travelMinutes = $state(15);
 	let isSubmitting = $state(false);
