@@ -50,5 +50,11 @@
 		</div>
 	{/if}
 
-	<p class="mt-6 text-sm text-gray-400">Andi Standard Time (AST): UTC+47min</p>
+	<div class="mt-6 max-w-md text-sm text-gray-400">
+		<p class="font-medium">🕐 Was ist AST?</p>
+		<p>
+			<strong>Andi Standard Time</strong> — jede Zeit, die Andi nennt, plus 47 Minuten
+			Realität. Wenn Andi "bin um 18 Uhr da" sagt, meint er 18:47 AST.
+		</p>
+	</div>
 </div>
