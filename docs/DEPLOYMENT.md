@@ -94,6 +94,22 @@ service cloud.firestore {
 Events lesen/schreiben. Für ein privates Geburtstagsgeschenk ist das
 akzeptabel, für einen ernsthaften Einsatz nicht.
 
+### Kann das ungewollt Geld kosten?
+
+**Nein.** Solange kein Billing-Konto mit dem Firebase-Projekt verknüpft wird,
+bleibt es auf dem kostenlosen **Spark-Plan** — der verlangt keine Kreditkarte
+und kein Zahlungsmittel ist hinterlegt. Ohne Zahlungsmittel kann Google
+technisch gar nicht abrechnen.
+
+Wird das Tageskontingent überschritten (50.000 Lesevorgänge/Tag, 1 GiB
+Speicher), werden weitere Anfragen **einfach abgelehnt** — die App zeigt dann
+Fehler, aber es entstehen keine Kosten. Ein Upgrade auf den kostenpflichtigen
+**Blaze-Plan** passiert nicht automatisch, sondern nur wenn man aktiv in der
+Firebase Console ein Billing-Konto hinterlegt. Solange das nicht passiert
+(und in diesem Projekt nicht nötig ist), ist es strukturell ausgeschlossen,
+dass Kosten anfallen — schlimmstenfalls geht die App kurz offline statt
+Rechnungen zu erzeugen.
+
 ### 5. Config lokal eintragen (zum Testen)
 
 ```sh
